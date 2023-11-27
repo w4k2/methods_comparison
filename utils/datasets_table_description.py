@@ -74,13 +74,13 @@ def result_tables_IR(dataset_names, metrics_alias, mean_scores, methods, stds):
             print("\\begin{table}[!ht]", file=file)
             print("\\centering", file=file)
             print("\\caption{%s}" % (metric), file=file)
-            columns = "r"
+            columns = "l"
             for i in methods:
                 columns += " c"
             print("\\scalebox{0.4}{", file=file)
             print("\\begin{tabular}{%s}" % columns, file=file)
             print("\\hline", file=file)
-            columns_names = "\\textbf{ID} &"
+            columns_names = "\\textbf{dataset} &"
             for name in methods:
                 name = name.replace("_", "-")
                 columns_names += f'\\textbf{{{name}}} & '
@@ -89,9 +89,14 @@ def result_tables_IR(dataset_names, metrics_alias, mean_scores, methods, stds):
             print(columns_names, file=file)
             print("\\hline", file=file)
             for id, arg in enumerate(IR_argsorted):
-                id += 1
-                line = "%d" % (id)
-                # lineir = "$%s$" % (dataset_names[arg])
+                # id += 1
+                # line = "%d" % (id)
+                lineir = "%s" % (dataset_names[arg])
+                lineir = lineir.split("/")[-1]
+                lineir = lineir.split(".")[0]
+                lineir = lineir.replace("_", "-")
+                print(lineir)
+                line = "%s" % (lineir)
                 # print(line, lineir)
                 line_values = []
                 line_values = mean_scores[arg, metric_id, :]
